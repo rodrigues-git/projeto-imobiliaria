@@ -2,10 +2,13 @@
 #include "cliente.h"
 #include "imovel.h"
 #include "roundrobin.h"
+#include "agendamentos.h"
+
 #include <iostream>
 #include <vector>
 #include <sstream>
 #include <algorithm>
+#include <iomanip>
  
 int main(){
     std::vector<corretor> corretores;
@@ -113,44 +116,21 @@ int main(){
         imoveis.push_back(imovel);
     }
 
-    std::cout << corretores.size() << std::endl;
-    for(size_t ii = 0; ii < corretores.size(); ii++){
-        std::cout << corretores[ii].getId() << " " << corretores[ii].getTel() << " " << corretores[ii].getAvaliador() << " " << corretores[ii].getLat() << " " << corretores[ii].getLng() << " " << corretores[ii].getNome() << std::endl;
-    }
+    round_robin(avaliadores, imoveis);
 
-    std::cout << std::endl;
+    for(size_t ii = 0; ii < avaliadores.size(); ii++){
+        std::vector<agendamento> resultado = organizar_visitas(avaliadores[ii]);
+        std::cout << "Corretor " << avaliadores[ii].getId() << std::endl;
 
-    std::cout << clientes.size() << std::endl;
-    for(size_t ii = 0; ii < clientes.size(); ii++){
-        std::cout << clientes[ii].getId() << " " << clientes[ii].getTel() << " " << clientes[ii].getNome() << std::endl;
-    }
-
-    std::cout << std::endl;
-
-    std::cout << imoveis.size() << std::endl;
-    for(size_t ii = 0; ii < imoveis.size(); ii++){
-        std::cout << imoveis[ii].getId() << " " << imoveis[ii].getTipo() << " " << imoveis[ii].getProprietarioId() << " " << imoveis[ii].getLat() << " " << imoveis[ii].getLng() << " " << imoveis[ii].getPreco() << " " << imoveis[ii].getEndereco() << std::endl;
-    }
-
-    std::cout << std::endl;
-
-    round_robin(avaliadores, imoveis); //chama de função para realizar o round_robin.
-
-    for (size_t i = 0; i < avaliadores.size(); i++){
-        std::cout << "Corretor ID " << avaliadores[i].getId() << " recebeu os imóveis: ";
-
-        std::vector<imovel*>& lista = avaliadores[i].getImoveisAtribuidos();
-
-        for (size_t j = 0; j < lista.size(); j++) {
-            std::cout << lista[j]->getId() << " ";
+        for (size_t jj = 0; jj < resultado.size(); jj++ ){
+            std::cout
+            << std::setw(2) << std::setfill('0') << resultado[jj].hora << ":"
+            << std::setw(2) << std::setfill('0') << resultado[jj].minuto
+            << "  Imóvel " << resultado[jj].idImovel << std::endl;;
         }
 
-        std::cout << std::endl;
+    std::cout << '\n';
     }
-
-    std::cout << std::endl;
-
-    system("pause");
-
+    
     return 0;
- }
+}
