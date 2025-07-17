@@ -1,6 +1,6 @@
 all: imobiliaria.exe
 
-imobiliaria.exe: main.o cliente.o corretor.o imovel.o roundrobin.o agendamentos.o calculo_distancia.o
+imobiliaria: main.o cliente.o corretor.o imovel.o roundrobin.o agendamentos.o calculo_distancia.o
 	g++ -Wall main.o cliente.o corretor.o imovel.o roundrobin.o agendamentos.o calculo_distancia.o -o imobiliaria.exe
 
 main.o: main.cpp
