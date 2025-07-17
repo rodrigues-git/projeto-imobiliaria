@@ -1,5 +1,6 @@
 #include "roundrobin.h"
 
+// função que realiza round_robin através de uma ed vetor circular
 void round_robin(std::vector<corretor>& avaliadores, std::vector<imovel>& imoveis){
     int indice;
     int num_avaliadores = avaliadores.size();

@@ -46,17 +46,11 @@ std::vector<agendamento> organizar_visitas(corretor avaliador){
 
         agendamentos.push_back({lista[indexProx]->getId(), hora, minuto}); // agenda a visita
 
-        minuto = minuto + 60; // adição do tempo de visita
-        //atualização dos minutos e hora caso exceda
-        if (minuto >= 60){
-            hora = hora + (minuto/60);
-            minuto = minuto % 60;
-        }
-
+        hora = hora + 1; // adição do tempo de visita
+        
         // atualização da localização atual para a do imovel recém-visitado
         latAtual = lista[indexProx]->getLat();
         lngAtual = lista[indexProx]->getLng();
-
 
         // marca o imovel como visitado e atualiza a variavel
         visitados[indexProx] = true;

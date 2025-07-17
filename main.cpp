@@ -43,6 +43,7 @@ int main(){
         corretor.setNome(nome);
         corretores.push_back(corretor);
 
+        // se o corretor for do tipo avaliador, é adicionado à lista de corretores avaliadores
         if(avaliador){
             avaliadores.push_back(corretor);
         }
@@ -118,6 +119,7 @@ int main(){
 
     round_robin(avaliadores, imoveis);
 
+    // loop de impressão
     for(size_t ii = 0; ii < avaliadores.size(); ii++){
         std::vector<agendamento> resultado = organizar_visitas(avaliadores[ii]);
         std::cout << "Corretor " << avaliadores[ii].getId() << std::endl;
